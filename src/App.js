@@ -19,11 +19,11 @@ const stories = [
     objectID: 1
   }
 ];
-
+  const [searchTerm, setsearchterm] = React.useState("");
 
 
   const handleChange = event => {
-    console.log(event.target.value);
+    setsearchterm(event.target.value);
   }
   return (
     <div>
@@ -31,6 +31,10 @@ const stories = [
     
       <label htmlFor="search">Search: </label>
       <input id="search" type="text"  onChange={handleChange}/>
+
+      <p>
+        Searching for <strong>{searchTerm}</strong>.
+      </p>
 
       <hr/>
       <List list = {stories}/>
