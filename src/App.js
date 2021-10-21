@@ -19,29 +19,42 @@ const stories = [
     objectID: 1
   }
 ];
-  const [searchTerm, setsearchterm] = React.useState("");
 
+  const handlesearch = event => {
+    console.log(event.target.value);
+  };
 
-  const handleChange = event => {
-    setsearchterm(event.target.value);
-  }
   return (
     <div>
       <h1>React & Redux Stories</h1> 
-    
-      <label htmlFor="search">Search: </label>
+
+      <search OnSearch={handleSearch}/>
+      
+      <hr/>
+      
+      <List list = {stories}/>
+      </div>
+  );
+  };
+
+  const search = props => {
+    const [searchTerm, setsearchterm] = React.useState("");
+  };
+
+  const handleChange = event => {
+    setsearchterm(event.target.value);
+ };
+
+ return (
+   <div>  
+   <label htmlFor="search">Search: </label>
       <input id="search" type="text"  onChange={handleChange}/>
 
       <p>
         Searching for <strong>{searchTerm}</strong>.
       </p>
-
-      <hr/>
-      <List list = {stories}/>
       </div>
-  );
-};
-
+ );
       const List = props =>
          props.list.map(item => (           
           <div key ={item.objectID}>
