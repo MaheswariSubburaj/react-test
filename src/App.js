@@ -1,6 +1,7 @@
 import React from 'react';
 
-const list = [
+const App = () => {
+const stories = [
   {
     title: "React",
     url: "https://reactjs.org/",
@@ -20,7 +21,7 @@ const list = [
 ];
 
 
-const App = () => {
+
   const handleChange = event => {
     console.log(event.target.value);
   }
@@ -32,13 +33,13 @@ const App = () => {
       <input id="search" type="text"  onChange={handleChange}/>
 
       <hr/>
-      <List />
+      <List list = {stories}/>
       </div>
   );
 };
 
-      const List = () =>
-         list.map(item => (           
+      const List = props =>
+         props.list.map(item => (           
           <div key ={item.objectID}>
             <span>
               <a href={item.url}>{item.title}</a>
