@@ -20,7 +20,7 @@ const stories = [
   }
 ];
 
-  const handlesearch = event => {
+  const handleSearch = event => {
     console.log(event.target.value);
   };
 
@@ -28,7 +28,7 @@ const stories = [
     <div>
       <h1>React & Redux Stories</h1> 
 
-      <search OnSearch={handleSearch}/>
+      <Search onSearch={handleSearch}/>
       
       <hr/>
       
@@ -37,24 +37,27 @@ const stories = [
   );
   };
 
-  const search = props => {
-    const [searchTerm, setsearchterm] = React.useState("");
-  };
-
-  const handleChange = event => {
-    setsearchterm(event.target.value);
- };
-
- return (
-   <div>  
-   <label htmlFor="search">Search: </label>
-      <input id="search" type="text"  onChange={handleChange}/>
-
-      <p>
-        Searching for <strong>{searchTerm}</strong>.
-      </p>
+  const Search = props => {
+    const [searchTerm, setSearchTerm] = React.useState("");
+  
+    const handleChange = event => {
+      setSearchTerm(event.target.value);
+  
+      props.onSearch(event);
+    };
+  
+    return (
+      <div>
+        <label htmlFor="search">Search: </label>
+        <input id="search" type="text" onChange={handleChange} />
+        <p>
+          Searching for <strong>{searchTerm}</strong>.
+        </p>
       </div>
- );
+    );
+  };
+  
+ 
       const List = props =>
          props.list.map(item => (           
           <div key ={item.objectID}>
