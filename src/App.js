@@ -1,4 +1,5 @@
 import React from 'react';
+import T from './T.js';
 
 const App = () => {
 const stories = [
@@ -21,8 +22,14 @@ const stories = [
 ];
 
 
-  const [searchTerm, setSearchTerm] = React.useState("React");
+  const [searchTerm, setSearchTerm] = React.useState(
+    localStorage.getItem("search") ||"React");
 
+   React.useEffect(() => {
+     localStorage.setItem("search", searchTerm);
+      },[searchTerm]);
+
+console.log(searchTerm);
   const handleSearch = event => {
     setSearchTerm(event.target.value);
   };
@@ -32,14 +39,16 @@ const stories = [
    );
 
   return (
-    <div>
-      <h1>React & Redux Stories</h1> 
+      <div>
+        <h1>React & Redux Stories</h1> 
 
-      <Search search={searchTerm} onSearch={handleSearch}/>
-      
-      <hr/>
-      
-      <List list = {searchedStories}/>
+        <Search search={searchTerm} onSearch={handleSearch}/>
+        
+        <hr/>
+        
+        <List list = {searchedStories}/>
+
+       
       </div>
   );
   };
