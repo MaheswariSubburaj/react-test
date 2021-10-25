@@ -1,5 +1,4 @@
-import React from 'react';
-import T from './T.js';
+import {useState, useEffect} from 'react';
 
 const App = () => {
 const stories = [
@@ -22,10 +21,10 @@ const stories = [
 ];
 
 
-  const [searchTerm, setSearchTerm] = React.useState(
+  const [searchTerm, setSearchTerm] = useState(
     localStorage.getItem("search") ||"React");
 
-   React.useEffect(() => {
+   useEffect(() => {
      localStorage.setItem("search", searchTerm);
       },[searchTerm]);
 
