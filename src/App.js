@@ -49,7 +49,7 @@ console.log(searchTerm);
    );
 
   return (
-      <div>
+      <>
         <h1>React & Redux Stories</h1> 
 
         <Search search={searchTerm} onSearch={handleSearch}/>
@@ -59,7 +59,7 @@ console.log(searchTerm);
         <List list = {searchedStories}/>
 
        
-      </div>
+      </>
   );
   };
 
