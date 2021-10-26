@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 
 const useSemiPersistance = (key, intialState) => {
   const [value, setValue] = useState(
@@ -34,13 +34,11 @@ const stories = [
 ];
 
 
-  const [searchTerm, setSearchTerm] = useSemiPersistance(
-    "search", "React");
+const [searchTerm, setSearchTerm] = useSemiPersistance("search", "React");
 
-   
-
-console.log(searchTerm);
-  const handleSearch = event => {
+ console.log(searchTerm);
+  
+ const handleSearch = event => {
     setSearchTerm(event.target.value);
   };
 
@@ -50,33 +48,48 @@ console.log(searchTerm);
 
   return (
       <>
-        <h1>React & Redux Stories</h1> 
+      <h1>React & Redux Stories</h1>
 
-        <InputWithLabel
-          id="search" 
-          label= "search"
-          value={searchTerm} 
-          onInputChange={handleSearch}
-          />
-        
-        <hr/>
-        
-        <List list = {searchedStories}/>
+      <InputWithLabel
+        id="search"
+        value={searchTerm}
+        isFocused
+        onInputChange={handleSearch}
+      >
+        <strong>Search:</strong>
+      </InputWithLabel>
 
-       
+      <hr />
+      <List list={searchedStories} />
       </>
-  );
+    );
   };
 
-      const InputWithLabel = ({id, label, value, type, onInputChange}) => (
-         <div>           
-            <label htmlFor={id}>{label}: </label>
-            &nbsp;
-            <input id={id} type={type} 
-            value={value} onChange={onInputChange} />
+      const InputWithLabel = ({
+        id, 
+        value, 
+        type = "text", 
+        onInputChange,
+        isFocused,
+        children
+      }) => {
+        const inputRef = React.useRef(); 
         
-      </div>
+        useEffect(() => {
+          if (isFocused) {
+            inputRef.current.focus();
+          }
+        }, [isFocused]);
+          
+        return (
+          <div>           
+            <label htmlFor={id}>{children}:</label>
+            &nbsp;
+            <input ref={inputRef} id={id} type={type} 
+            value={value} onChange={onInputChange} />
+          </div>
     );
+        };
    
       const List = ({list}) =>
          list.map(item => <Item key ={item.objectID} item={item}/>);
